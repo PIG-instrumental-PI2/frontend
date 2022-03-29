@@ -1,14 +1,18 @@
 import { render } from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import App from "./App";
+import GlobalStyle from "./styles/Global.styled";
+import App from "./pages/App";
 
 const rootElement = document.getElementById("root");
 
 render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />} />
-    </Routes>
-  </BrowserRouter>,
+  <>
+    <BrowserRouter>
+      <GlobalStyle />
+      <Routes>
+        <Route path="/" element={<App />} />
+      </Routes>
+    </BrowserRouter>
+  </>,
   rootElement
 );
