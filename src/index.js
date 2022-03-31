@@ -1,7 +1,7 @@
 import { render } from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GlobalStyle from "./styles/Global.styled";
-import App from "./pages/App";
+import Inspections from "./pages/Inspections";
 
 const rootElement = document.getElementById("root");
 
@@ -10,7 +10,7 @@ render(
     <BrowserRouter>
       <GlobalStyle />
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<Inspections />} />
       </Routes>
     </BrowserRouter>
   </>,
