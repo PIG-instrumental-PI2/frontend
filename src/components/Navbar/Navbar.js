@@ -1,9 +1,11 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 import PigstyLogo from "../../assets/img/PigstyLogo.png";
 import InspectionIcon from "../../assets/icons/InspectionIcon.svg";
 
-function Navbar({ navigate }) {
+function Navbar() {
+  const navigate = useNavigate();
   return (
     <nav>
       <NavWrapper>

@@ -1,11 +1,21 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router-dom";
 import Navbar from "./Navbar";
 
-const mockNavigate = jest.fn();
+const mockedNavigate = jest.fn();
+
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: () => mockedNavigate,
+}));
 
 function renderNavbar() {
-  return render(<Navbar navigate={mockNavigate} />);
+  return render(
+    <MemoryRouter>
+      <Navbar />
+    </MemoryRouter>
+  );
 }
 
 describe("<Navbar />", () => {
@@ -27,6 +37,6 @@ describe("<Navbar />", () => {
 
     userEvent.click(inspectionsButton);
 
-    expect(mockNavigate).toHaveBeenCalledWith("/");
+    expect(mockedNavigate).toHaveBeenCalledWith("/");
   });
 });
