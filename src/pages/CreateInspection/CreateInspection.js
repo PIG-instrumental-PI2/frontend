@@ -1,22 +1,81 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import Button from "../../components/Button/Button";
 import Input, { Select } from "../../components/Input/Input";
 import LogoWithName from "../../assets/img/LogoWithName.png";
+import { getPigList } from "../../services/pig";
+import { createInspection } from "../../services/inspections";
+import { useNavigate } from "react-router-dom";
 
 function CreateInspection() {
+  const [name, setName] = useState("");
+  const [place, setPlace] = useState("");
+  const [pigList, setPigList] = useState(null);
+  const [selectedPig, setSelectedPig] = useState("default");
+  const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    async function setupPigList() {
+      try {
+        const response = await getPigList();
+        setPigList(response.data.pigs);
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    setupPigList();
+  }, []);
+
+  if (loading) {
+    return <>Loading...</>;
+  }
+
+  async function handleSubmit() {
+    try {
+      await createInspection({
+        name,
+        place,
+        pig_number: selectedPig,
+      });
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <Container>
       <Logo src={LogoWithName} alt="Pigsty Logo" />
       <Heading>Criar Inspeção</Heading>
-      <Input placeholder="Nome" />
-      <Input placeholder="Local" />
-      <Select defaultValue="0">
-        <option disabled value="0">
+      <Input
+        placeholder="Nome"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <Input
+        placeholder="Local"
+        value={place}
+        onChange={(e) => setPlace(e.target.value)}
+      />
+      <Select
+        value={selectedPig}
+        onChange={(e) => setSelectedPig(e.target.value)}
+      >
+        <option disabled value="default">
           Número de Série do PIG
         </option>
+        {pigList &&
+          pigList.map(({ pig_number }) => (
+            <option key={pig_number} value={pig_number}>
+              {pig_number}
+            </option>
+          ))}
       </Select>
-      <Button>CRIAR</Button>
+      <Button onClick={handleSubmit}>CRIAR</Button>
     </Container>
   );
 }
