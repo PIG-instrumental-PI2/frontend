@@ -10,6 +10,7 @@ const Button = styled.button`
   text-transform: uppercase;
   padding: 12px;
   min-width: 300px;
+  height: 46px;
   cursor: pointer;
 
   transition: all 0.2s ease-in-out;

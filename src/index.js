@@ -1,7 +1,7 @@
 import { render } from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GlobalStyle from "./styles/Global.styled";
-import Inspections from "./pages/Inspections";
+import Inspections from "./pages/Inspections/Inspections";
 import CreateInspection from "./pages/CreateInspection/CreateInspection";
 import Navbar from "./components/Navbar/Navbar";
 
