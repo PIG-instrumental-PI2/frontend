@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Button from "../../components/Button/Button";
 import InpsectionTable from "../../components/InpsectionTable/InpectionTable";
 import { getInspections } from "../../services/inspections";
+import { Heading,Container } from "../../styles/Pages.styled";
 
 function Inspections() {
   const navigate = useNavigate();
@@ -41,25 +42,6 @@ function Inspections() {
     </Container>
   );
 }
-
-const Heading = styled.h1`
-  font-weight: 500;
-  font-size: 72px;
-`;
-
-const Container = styled.div`
-  width: 80vw;
-  max-width: 920px;
-  min-width: 260px;
-  margin: auto;
-  margin-top: 2em;
-
-  @media screen and (max-width: 920px) {
-    ${Heading} {
-      font-size: 48px;
-    }
-  }
-`;
 
 const TitleWrapper = styled.div`
   display: flex;
