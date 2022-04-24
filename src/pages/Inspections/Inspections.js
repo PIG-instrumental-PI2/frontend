@@ -15,7 +15,7 @@ function Inspections() {
       try {
         setIsLoading(true);
         const { data } = await getInspections();
-        setInspections(data.inspections);
+        setInspections(data);
         setIsLoading(false);
       } catch (error) {
         console.error(error);

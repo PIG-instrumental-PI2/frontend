@@ -12,20 +12,24 @@ jest.mock("react-router-dom", () => ({
   useNavigate: () => mockedNavigate,
 }));
 
+
+
+function mockGetPigList(){
+  jest.spyOn(api, "get").mockImplementationOnce(() =>
+      Promise.resolve({
+        data: [
+          {
+            id: "pig_id",
+            pig_number: "pig_number",
+          },
+        ]
+      })
+  );
+}
+
 describe("<CreateInspection />", () => {
   it("should render create inspection page", async () => {
-    jest.spyOn(api, "get").mockImplementationOnce(() =>
-      Promise.resolve({
-        data: {
-          pigs: [
-            {
-              pig_number: "pig_number",
-            },
-          ],
-        },
-      })
-    );
-
+    mockGetPigList();
     render(<CreateInspection />);
 
     expect(
@@ -39,18 +43,7 @@ describe("<CreateInspection />", () => {
   });
 
   it("should redirect to inspections page on inspection create success", async () => {
-    jest.spyOn(api, "get").mockImplementationOnce(() =>
-      Promise.resolve({
-        data: {
-          pigs: [
-            {
-              pig_number: "pig_number",
-            },
-          ],
-        },
-      })
-    );
-
+    mockGetPigList();
     jest.spyOn(api, "post").mockImplementationOnce(() => Promise.resolve());
 
     render(

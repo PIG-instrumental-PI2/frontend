@@ -12,23 +12,21 @@ import Inspections from "./Inspections";
 function mockInspectionList() {
   jest.spyOn(api, "get").mockImplementationOnce(() =>
     Promise.resolve({
-      data: {
-        inspections: [
-          {
-            id: "id",
-            name: "name",
-            place: "local",
-            pig_number: "pig_number",
-          },
-          {
-            id: "id1",
-            name: "name",
-            place: "local",
-            pig_number: "pig_number",
-          },
-        ],
-      },
-    })
+      data: [
+        {
+          id: "id",
+          name: "name",
+          place: "local",
+          pig_number: "pig_number",
+        },
+        {
+          id: "id1",
+          name: "name",
+          place: "local",
+          pig_number: "pig_number",
+        },
+        ]
+     })
   );
 }
 
