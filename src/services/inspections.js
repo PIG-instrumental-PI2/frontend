@@ -7,3 +7,8 @@ export function createInspection(inspection) {
 export function getInspections() {
   return api.get("/inspections");
 }
+
+
+export function getMeasurements(inspection_id) {
+  return api.get(`/inspections/${inspection_id}/measurements/`);
+}

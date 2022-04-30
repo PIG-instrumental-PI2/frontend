@@ -11,14 +11,14 @@ jest.mock("react-router-dom", () => ({
 
 
 describe("<Graphs/>",()=>{
-    it("it should render Graphs page.",()=>{
+    it("should render Graphs page.",()=>{
         render(<Graphs/>);
 
         expect(screen.getByRole("heading",{name:/Gráficos/i})).toBeInTheDocument();
         expect(screen.getByRole("button",{name:/voltar/i})).toBeInTheDocument();
     })
 
-    it("it should go back to Inspection Page on 'voltar' button click.",()=>{
+    it("should go back to Inspection Page on 'voltar' button click.",()=>{
         render(<Graphs/>);
         
         const backButton = screen.getByRole("button", {
@@ -30,4 +30,6 @@ describe("<Graphs/>",()=>{
           expect(mockedNavigate).toHaveBeenCalledWith(-1);
 
     })
+
+
 })
