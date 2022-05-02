@@ -3,7 +3,6 @@ import { MemoryRouter } from "react-router-dom";
 import CreateInspection from "./CreateInspection";
 import api from "../../services/api";
 import userEvent from "@testing-library/user-event";
-import axios from "axios";
 
 const mockedNavigate = jest.fn();
 
@@ -12,18 +11,16 @@ jest.mock("react-router-dom", () => ({
   useNavigate: () => mockedNavigate,
 }));
 
-
-
-function mockGetPigList(){
+function mockGetPigList() {
   jest.spyOn(api, "get").mockImplementationOnce(() =>
-      Promise.resolve({
-        data: [
-          {
-            id: "pig_id",
-            pig_number: "pig_number",
-          },
-        ]
-      })
+    Promise.resolve({
+      data: [
+        {
+          id: "pig_id",
+          pig_number: "pig_number",
+        },
+      ],
+    })
   );
 }
 

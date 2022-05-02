@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import LeftArrow from "../../assets/icons/LeftArrow.png"
+import LeftArrow from "../../assets/icons/LeftArrow.png";
 
 const Button = styled.button`
   border-radius: 4px;
@@ -38,23 +38,25 @@ export const SmallButton = styled.button`
   }
 `;
 
-
-export const ReturnButton = ({onClick}) =>{
-
-  return (<ReturnButtonStyle onClick={onClick}><img style={{height:20}} src={LeftArrow} alt="Left Arrow"/>voltar</ReturnButtonStyle>);
-
-}
+export const ReturnButton = ({ onClick }) => {
+  return (
+    <ReturnButtonStyle onClick={onClick}>
+      <img style={{ height: 20 }} src={LeftArrow} alt="Left Arrow" />
+      voltar
+    </ReturnButtonStyle>
+  );
+};
 
 const ReturnButtonStyle = styled.button`
-display:flex;
-border:none;
-background-color: transparent;
-font-size: 18px;
-text-transform: uppercase;
-color: var(--color-grey-dark);
-gap:1em;
-font-weight: 500;
-cursor:pointer;
-`
+  display: flex;
+  border: none;
+  background-color: transparent;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: var(--color-grey-dark);
+  gap: 1em;
+  font-weight: 500;
+  cursor: pointer;
+`;
 
 export default Button;

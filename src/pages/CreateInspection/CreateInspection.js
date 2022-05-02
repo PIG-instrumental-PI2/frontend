@@ -20,7 +20,7 @@ function CreateInspection() {
   useEffect(() => {
     async function setupPigList() {
       try {
-        const {data} = await getPigList();
+        const { data } = await getPigList();
         setPigList(data);
         setLoading(false);
       } catch (error) {
@@ -39,9 +39,9 @@ function CreateInspection() {
       await createInspection({
         name,
         place,
-        company_id:"54321",
+        company_id: "54321",
         pig_id: selectedPig,
-        description:"informação"
+        description: "informação",
       });
       navigate("/");
     } catch (error) {
@@ -71,7 +71,7 @@ function CreateInspection() {
           Número de Série do PIG
         </option>
         {pigList &&
-          pigList.map(({ pig_number,id}) => (
+          pigList.map(({ pig_number, id }) => (
             <option key={pig_number} value={id}>
               {pig_number}
             </option>

@@ -25,8 +25,8 @@ function mockInspectionList() {
           place: "local",
           pig_number: "pig_number",
         },
-        ]
-     })
+      ],
+    })
   );
 }
 

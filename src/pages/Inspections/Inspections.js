@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Button from "../../components/Button/Button";
 import InpsectionTable from "../../components/InpsectionTable/InpectionTable";
 import { getInspections } from "../../services/inspections";
-import { Heading,Container } from "../../styles/Pages.styled";
+import { Heading, Container } from "../../styles/Pages.styled";
 
 function Inspections() {
   const navigate = useNavigate();
