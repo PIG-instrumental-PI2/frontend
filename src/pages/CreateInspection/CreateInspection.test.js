@@ -61,4 +61,47 @@ describe("<CreateInspection />", () => {
 
     await waitFor(() => expect(mockedNavigate).toBeCalledWith("/"));
   });
+
+  it("should call console error on get failing", async () => {
+    jest.spyOn(api, "get").mockImplementationOnce(() => Promise.reject(400));
+
+    const consoleSpy = jest
+      .spyOn(console, "error")
+      .mockImplementationOnce(() => {});
+
+    render(
+      <MemoryRouter>
+        <CreateInspection />
+      </MemoryRouter>
+    );
+
+    await waitFor(() => expect(consoleSpy).toHaveBeenCalled());
+  });
+
+  it("should call console error on post failing", async () => {
+    mockGetPigList();
+    jest.spyOn(api, "post").mockImplementationOnce(() => Promise.reject(400));
+
+    const consoleSpy = jest
+      .spyOn(console, "error")
+      .mockImplementationOnce(() => {});
+
+    render(
+      <MemoryRouter>
+        <CreateInspection />
+      </MemoryRouter>
+    );
+
+    const nameInput = await screen.findByPlaceholderText(/nome/i);
+    const localInput = screen.getByPlaceholderText(/local/i);
+    const pigSelect = screen.getByRole("combobox");
+    const button = screen.getByRole("button", { name: /criar/i });
+
+    userEvent.type(nameInput, "name");
+    userEvent.type(localInput, "local");
+    userEvent.selectOptions(pigSelect, "pig_number");
+    userEvent.click(button);
+
+    await waitFor(() => expect(consoleSpy).toHaveBeenCalled());
+  });
 });

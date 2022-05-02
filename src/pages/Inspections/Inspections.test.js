@@ -2,6 +2,7 @@ import {
   getByRole,
   render,
   screen,
+  waitFor,
   waitForElementToBeRemoved,
   within,
 } from "@testing-library/react";
@@ -105,5 +106,17 @@ describe("<Inspections />", () => {
     userEvent.click(groupButtons[0]);
 
     expect(mockedNavigate).toBeCalledWith("/graphs/id");
+  });
+
+  it("should call console error on request failing", async () => {
+    jest.spyOn(api, "get").mockImplementationOnce(() => Promise.reject(400));
+
+    const consoleSpy = jest
+      .spyOn(console, "error")
+      .mockImplementationOnce(() => {});
+
+    render(<Inspections />);
+
+    await waitFor(() => expect(consoleSpy).toHaveBeenCalled());
   });
 });

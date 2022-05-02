@@ -106,4 +106,16 @@ describe("<Graphs/>", () => {
       [2.5, 2.6, 2.7]
     );
   });
+
+  it("should call console error on request failing", async () => {
+    jest.spyOn(api, "get").mockImplementationOnce(() => Promise.reject(400));
+
+    const consoleSpy = jest
+      .spyOn(console, "error")
+      .mockImplementationOnce(() => {});
+
+    render(<Graphs />);
+
+    await waitFor(() => expect(consoleSpy).toHaveBeenCalled());
+  });
 });
