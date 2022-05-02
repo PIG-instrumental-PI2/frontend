@@ -1,7 +1,8 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import api from "../../services/api";
 import Groups from "./Groups";
+import { formatData } from "./utils";
 
 const mockedNavigate = jest.fn();
 
@@ -10,28 +11,47 @@ jest.mock("react-router-dom", () => ({
   useNavigate: () => mockedNavigate,
 }));
 
+jest.mock("./utils.js", () => ({
+  ...jest.requireActual("./utils.js"),
+  formatData: jest.fn(),
+}));
+
 describe("<Groups/>", () => {
-  it("should render Groups page.", () => {
+  it("should render Groups page.", async () => {
     jest.spyOn(api, "get").mockImplementationOnce(() =>
       Promise.resolve({
-        clusters: [],
+        data: {
+          clusters: [],
+        },
       })
     );
     render(<Groups />);
+
+    await waitFor(() => {
+      expect(formatData).toHaveBeenCalled();
+    });
 
     expect(
       screen.getByRole("heading", { name: /Grupos/i })
     ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /voltar/i })).toBeInTheDocument();
+
+    expect(screen.getByText("campo magnético")).toBeInTheDocument();
   });
 
-  it("should go back to Inspection Page on 'voltar' button click.", () => {
+  it("should go back to Inspection Page on 'voltar' button click.", async () => {
     jest.spyOn(api, "get").mockImplementationOnce(() =>
       Promise.resolve({
-        clusters: [],
+        data: {
+          clusters: [],
+        },
       })
     );
     render(<Groups />);
+
+    await waitFor(() => {
+      expect(formatData).toHaveBeenCalled();
+    });
 
     const backButton = screen.getByRole("button", {
       name: /voltar/i,
@@ -40,5 +60,22 @@ describe("<Groups/>", () => {
     userEvent.click(backButton);
 
     expect(mockedNavigate).toHaveBeenCalledWith(-1);
+  });
+
+  it("should call format data correctly", async () => {
+    jest.spyOn(api, "get").mockImplementationOnce(() =>
+      Promise.resolve({
+        data: {
+          clusters: [[1], [2], [3]],
+        },
+      })
+    );
+    render(<Groups />);
+
+    await waitFor(() => {
+      expect(formatData).toHaveBeenCalled();
+    });
+
+    expect(formatData).toHaveBeenCalledWith([[1], [2], [3]]);
   });
 });

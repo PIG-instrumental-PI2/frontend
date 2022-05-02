@@ -1,6 +1,5 @@
-import { Heading, Container } from "../../styles/Pages.styled";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { ReturnButton } from "../../components/Button/Button";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   CartesianGrid,
@@ -11,8 +10,10 @@ import {
   ScatterChart,
   Scatter,
 } from "recharts";
+import { Heading, Container } from "../../styles/Pages.styled";
+import { ReturnButton } from "../../components/Button/Button";
 import { getMeasurements } from "../../services/inspections";
-import { useState, useEffect } from "react";
+import { formatData } from "./utils";
 
 function renderScatterChart(data, yLabel, xLabel = "posicão") {
   return (
@@ -32,12 +33,6 @@ function renderScatterChart(data, yLabel, xLabel = "posicão") {
       <Scatter data={data} fill="#8884d8" />
     </ScatterChart>
   );
-}
-
-function formatData(array1) {
-  return array1.map((array1Item, index) => {
-    return { x: index, y: array1Item[0] };
-  });
 }
 
 function Groups() {

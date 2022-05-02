@@ -1,7 +1,5 @@
-import { Heading, Container } from "../../styles/Pages.styled";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { ReturnButton } from "../../components/Button/Button";
-import { useNavigate, useParams } from "react-router-dom";
 import {
   LineChart,
   Line,
@@ -9,11 +7,13 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  ResponsiveContainer,
   Label,
 } from "recharts";
+import { useNavigate, useParams } from "react-router-dom";
+import { Heading, Container } from "../../styles/Pages.styled";
+import { ReturnButton } from "../../components/Button/Button";
 import { getMeasurements } from "../../services/inspections";
-import { useState, useEffect } from "react";
+import { formatData } from "./utils";
 
 function renderLineChart(data, yLabel, xLabel = "tempo(ms)") {
   return (
@@ -39,12 +39,6 @@ function renderLineChart(data, yLabel, xLabel = "tempo(ms)") {
       </LineChart>
     </div>
   );
-}
-
-function formatData(array1, array2) {
-  return array1.map((array1Item, index) => {
-    return { x: array1Item, y: array2[index] };
-  });
 }
 
 function Graphs() {
