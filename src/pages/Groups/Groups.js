@@ -9,11 +9,15 @@ import {
   Label,
   ScatterChart,
   Scatter,
+  LineChart,
+  Line,
 } from "recharts";
 import { Heading, Container } from "../../styles/Pages.styled";
 import { ReturnButton } from "../../components/Button/Button";
 import { getMeasurements } from "../../services/inspections";
-import { formatData } from "./utils";
+// import { formatData } from "./utils";
+import { formatData } from "../Graphs/utils";
+
 
 function renderScatterChart(data, yLabel, xLabel = "posicão") {
   return (
@@ -61,7 +65,7 @@ function Groups() {
         <StyledHeading>Grupos</StyledHeading>
       </TitleWrapper>
       {renderScatterChart(
-        measurement ? formatData(measurement.clusters) : [],
+        measurement ? formatData(measurement.times, measurement.magnetic_fields_avg) : [],
         "campo magnético"
       )}
     </Container>
